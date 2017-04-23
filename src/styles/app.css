@@ -1,0 +1,18 @@
+@import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
+
+.convector {
+    display: flex;
+    margin-top: 30px;
+}
+
+.convector .alert{
+    height: calc(100% - 40px);
+    font-size: 6.67vw;
+    font-weight: 700;
+    display: flex;
+    align-items:center;
+    justify-content: center;
+}
+.convector .form-group{
+    margin-bottom: 0;
+}
