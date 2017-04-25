@@ -3,34 +3,44 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import Menu from '../components/Menu'
 import Convector from '../components/Converter'
+import Loger from '../components/Loger'
 import * as convectorAction from '../actions/ConvectorAction'
 import * as menuAction from '../actions/MenuAction'
+import * as logerAction from '../actions/LogerAction'
 
 class App extends Component {
-    render() {
-        const { menu, convector } = this.props
-        const { setNumbers } = this.props.convectorAction
-        const { setActive } = this.props.menuAction
-        return (
-            <div className='app container'>
-                <Menu active={menu.active} setActive={setActive}/>
-                <Convector intIn1={convector.intIn1}  intIn2={convector.intIn2} setNumbers={setNumbers} />
-            </div>
-        )
-    }
+  render() {
+    const { menu, convector, loger } = this.props
+    const { setNumbers } = this.props.convectorAction
+    const { setActive } = this.props.menuAction
+    const { updateLogers} = this.props.logerAction
+
+    return (
+      <div className='app container'>
+        <Menu active={menu.active} setActive={setActive} />
+        {menu.active === 'Conventor' ?
+          <Convector intIn1={convector.intIn1} intIn2={convector.intIn2} setNumbers={setNumbers} />
+          :
+          <Loger logers={loger.logers} updateLogers={updateLogers}/>
+        }
+      </div>
+    )
+  }
 }
 
-function mapStateToProps (state) {
+function mapStateToProps(state) {
   return {
     convector: state.convector,
-    menu: state.menu
+    menu: state.menu,
+    loger: state.loger
   }
 }
 function mapDispatchToProps(dispatch) {
   return {
     convectorAction: bindActionCreators(convectorAction, dispatch),
-    menuAction: bindActionCreators(menuAction, dispatch)
+    menuAction: bindActionCreators(menuAction, dispatch),
+    logerAction: bindActionCreators(logerAction, dispatch)
   }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(App)
+export default connect(mapStateToProps, mapDispatchToProps)(App)
