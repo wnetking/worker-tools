@@ -5,12 +5,13 @@
     margin-top: 30px;
 }
 
-.convector .alert, .loger .alert{
+.convector .alert{
     height: calc(100% - 40px);
     display: flex;
     align-items:center;
     justify-content: center;
 }
+
 .convector .alert{
     font-size: 6.67vw;
     font-weight: 700;
