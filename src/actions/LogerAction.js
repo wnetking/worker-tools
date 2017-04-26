@@ -7,5 +7,4 @@ export function updateLogers(logers) {
         logers: logers
     }
   }
-
 }
