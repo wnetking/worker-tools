@@ -11,11 +11,18 @@ export default class Loger extends Component {
     ReactDOM.findDOMNode(this.refs.newLog).value = ''
   }
 
+  componentDidMount(){
+    document.addEventListener('keypress', (e) =>
+      e.charCode === 13 && ReactDOM.findDOMNode(this.refs.newLog).value != '' ?  this.onSubmitForm(): ''
+    );
+  }
+
+
   render() {
     const {logers} = this.props
     const logersItem = logers.map((item, index) => {
         return (
-          <p><LogItem logContent={item} key={index}/></p>
+          <div key={index}><LogItem logContent={item}/></div>
         )
       }
     )
@@ -29,9 +36,9 @@ export default class Loger extends Component {
           <button type='button' className='btn btn-primary' onClick={this.onSubmitForm.bind(this)}>Добавить</button>
         </div>
         <div className='col-xs-7'>
-          <p className='alert alert-info'>
+          <div className='alert alert-info'>
             {logersItem}
-          </p>
+          </div>
         </div>
       </div>
     )
