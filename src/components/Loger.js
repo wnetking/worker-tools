@@ -24,7 +24,7 @@ export default class Loger extends Component {
     }
     );
   }
-
+  
   render() {
     const { logers, updateLogers, updateLocalStorage } = this.props
     const logersItem = logers.map((item, index) => {
