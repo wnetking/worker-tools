@@ -1,41 +1,61 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import LogItem from './Log'
 
 export default class Loger extends Component {
 
   onSubmitForm() {
-    const {logers} = this.props
-    const newLogers = [].concat(ReactDOM.findDOMNode(this.refs.newLog).value, logers)
-    this.props.updateLogers(newLogers);
+    if (ReactDOM.findDOMNode(this.refs.newLog).value === '') return
+    const { logers } = this.props
+    const newLog = [{
+      date: String(new Date().toLocaleDateString()),
+      time: String(new Date().toLocaleTimeString()),
+      content: ReactDOM.findDOMNode(this.refs.newLog).value
+    }]
+    const newLogers = [].concat(newLog, logers)
+    this.props.updateLogers(newLogers)
+    this.props.updateLocalStorage(newLogers);
     ReactDOM.findDOMNode(this.refs.newLog).value = ''
   }
 
+  componentDidMount() {
+    document.addEventListener('keypress', (e) => {
+      e.charCode === 10 && e.ctrlKey && ReactDOM.findDOMNode(this.refs.newLog).value != '' ? this.onSubmitForm() : ''
+    }
+    );
+  }
+
   render() {
-    const {logers} = this.props
+    const { logers, updateLogers, updateLocalStorage } = this.props
     const logersItem = logers.map((item, index) => {
-        return (
-          <p><LogItem logContent={item} key={index}/></p>
-        )
-      }
+      return (
+        <div key={index}>
+          <LogItem logContent={item.content}
+            logDate={item.date}
+            logTime={item.time}
+            updateLogers={updateLogers}
+            updateLocalStorage={updateLocalStorage}
+            logers={logers} />
+        </div>
+      )
+    }
     )
     return (
       <div className='loger row'>
         <div className='col-xs-5'>
           <div className='form-group'>
-            <input type='email' ref='newLog' className='form-control form-control-lg' placeholder='Пил чай ...'/>
+            <textarea type='email' ref='newLog' className='form-control form-control-lg' placeholder='Пил чай ...' />
             <small className='form-text text-muted'>Что делал сегодня?</small>
+            <span>Уже {logers.length} записей</span>
           </div>
           <button type='button' className='btn btn-primary' onClick={this.onSubmitForm.bind(this)}>Добавить</button>
         </div>
         <div className='col-xs-7'>
-          <p className='alert alert-info'>
+          <div className='loger-content'>
             {logersItem}
-          </p>
+          </div>
         </div>
       </div>
     )
   }
 }
-
-Loger.propTypes = {}
