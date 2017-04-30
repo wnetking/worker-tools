@@ -1,8 +1,27 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import LogItem from './Log'
+import LogByDate from './LogsByDate'
 
 export default class Loger extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      logByDate: false
+    };
+    this.triggerlogByDate = this.triggerlogByDate.bind(this)
+    this.onFocusTextarea = this.onFocusTextarea.bind(this)
+  }
+
+  triggerlogByDate() {
+    this.setState({ logByDate: !this.state.logByDate })
+  }
+  
+  onFocusTextarea(){
+    if(this.state.logByDate){
+      this.setState({ logByDate: false })
+    }
+  }
 
   onSubmitForm() {
     if (ReactDOM.findDOMNode(this.refs.newLog).value === '') return
@@ -24,9 +43,10 @@ export default class Loger extends Component {
     }
     );
   }
-  
+
   render() {
     const { logers, updateLogers, updateLocalStorage } = this.props
+    const triggerlogByDate = this.state.logByDate
     const logersItem = logers.map((item, index) => {
       return (
         <div key={index}>
@@ -44,16 +64,21 @@ export default class Loger extends Component {
       <div className='loger row'>
         <div className='col-xs-5'>
           <div className='form-group'>
-            <textarea type='email' ref='newLog' className='form-control form-control-lg' placeholder='Пил чай ...' />
+            <textarea type='email' ref='newLog' onFocus={this.onFocusTextarea} className='form-control form-control-lg' placeholder='Пил чай ...' />
             <small className='form-text text-muted'>Что делал сегодня?</small>
             <span>Уже {logers.length} записей</span>
           </div>
           <button type='button' className='btn btn-primary' onClick={this.onSubmitForm.bind(this)}>Добавить</button>
+          <button type='button' className='btn btn-link' onClick={this.triggerlogByDate}>Посмотреть по числу</button>
         </div>
         <div className='col-xs-7'>
-          <div className='loger-content'>
-            {logersItem}
-          </div>
+          {!triggerlogByDate ?
+            <div className='loger-content'>
+              {logersItem}
+            </div>
+            : 
+            <div><LogByDate /></div>
+          }
         </div>
       </div>
     )
