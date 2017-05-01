@@ -3,11 +3,12 @@ import React, {Component} from 'react'
 
 export default class LogItem extends Component {
   render() {
-    const {logContent} = this.props
+    const {logContent, logDate} = this.props
     return (
-      <p className='alert alert-warning'>
+      <div className='alert alert-warning'>
+        <p>{logDate}</p>
         {logContent}
-      </p>
+      </div>
     )
   }
 }

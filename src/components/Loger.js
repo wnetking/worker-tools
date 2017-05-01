@@ -6,7 +6,12 @@ export default class Loger extends Component {
 
   onSubmitForm() {
     const {logers} = this.props
-    const newLogers = [].concat(ReactDOM.findDOMNode(this.refs.newLog).value, logers)
+    const newLog = {
+      date: String(new Date().toLocaleString()),
+      content: ReactDOM.findDOMNode(this.refs.newLog).value
+    }
+
+    const newLogers = [].concat(newLog, logers)
     this.props.updateLogers(newLogers);
     ReactDOM.findDOMNode(this.refs.newLog).value = ''
   }
@@ -22,7 +27,7 @@ export default class Loger extends Component {
     const {logers} = this.props
     const logersItem = logers.map((item, index) => {
         return (
-          <div key={index}><LogItem logContent={item}/></div>
+          <div key={index}><LogItem logContent={item.content} logDate={item.date}/></div>
         )
       }
     )
