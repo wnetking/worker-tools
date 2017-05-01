@@ -37,7 +37,7 @@ export default class LogByDate extends Component {
     return (
       <div className='card'>
         <div className='card-header'>
-          <DatePicker selected={this.state.startDate} onChange={this.handleChange}/>
+          <DatePicker selected={this.state.startDate} selectsStart onChange={this.handleChange} filterDate={this.isWeekday}/>
         </div>
         <div className='card-block'>
           <div className='card-text'>
