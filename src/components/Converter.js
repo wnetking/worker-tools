@@ -24,15 +24,15 @@ export default class Converter extends Component {
             <div className='convector row'>
                 <div className='col-xs-5'>
                     <div className='form-group row'>
-                        <label className='col-xs-12 col-form-label'>Первое число</label>
-                        <div className='col-xs-12'>
-                            <input className='form-control form-control-lg' ref='intIn1' type='number' placeholder={intIn1} onChange={this.onChange.bind(this)}></input>
+                        <div className='col-xs-12 input-group'>
+                            <input aria-describedby='basic-addon1' className='form-control form-control-lg' ref='intIn1' type='number' placeholder={intIn1} onChange={this.onChange.bind(this)}></input>
+                            <span className='input-group-addon' id='basic-addon1'>Первое число</span>
                         </div>
                     </div>
                     <div className='form-group row'>
-                        <label className='col-xs-12 col-form-label'>Доля от первого числа</label>
-                        <div className='col-xs-12'>
-                            <input className='form-control form-control-lg' ref='intIn2' type='number' placeholder={intIn2} onChange={this.onChange.bind(this)}></input>
+                        <div className='col-xs-12 input-group'>
+                            <input aria-describedby='basic-addon2' className='form-control form-control-lg' ref='intIn2' type='number' placeholder={intIn2} onChange={this.onChange.bind(this)}></input>
+                            <span className='input-group-addon' id='basic-addon2'>Доля от первого числа</span>
                         </div>
                     </div>
                     <div className='form-check col-form-label'>
@@ -43,8 +43,14 @@ export default class Converter extends Component {
                     </div>
                 </div>
                 <div className='col-xs-7'>
-                    <label className='col-form-label'>Результат в {em ? <span>em</span> : <span>%</span>}</label>
-                    <p className='alert alert-info'><span>{em ? (((intIn2 * 100) / intIn1) / 100).toFixed(2) : ((intIn2 * 100) / intIn1).toFixed(2)}</span></p>
+                    <div className='card'>
+                        <div className='card-header'>Результат в {em ? <span>em</span> : <span>%</span>}</div>
+                        <div className='card-block'>
+                            <p className='card-text'>
+                                <span>{em ? (((intIn2 * 100) / intIn1) / 100).toFixed(2) : ((intIn2 * 100) / intIn1).toFixed(2)}</span>
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
         )

@@ -1,4 +1,4 @@
-import React, { PropTypes, Component } from 'react'
+import React, { Component } from 'react'
 
 export default class Menu extends Component {
     onMenuItemClicke(e){
@@ -10,7 +10,7 @@ export default class Menu extends Component {
             <nav className='navbar navbar-toggleable-md navbar-light bg-faded'>
             <ul className='nav nav-pills'>
                 <li className='nav-item'>
-                    <a className='nav-link' href='#' onClick={this.onMenuItemClicke.bind(this)}>Conventor</a>
+                    <a className='nav-link' href='#' onClick={this.onMenuItemClicke.bind(this)}>Convector</a>
                 </li>
                 <li className='nav-item'>
                     <a className='nav-link' href='#' onClick={this.onMenuItemClicke.bind(this)}>Loger</a>
@@ -19,8 +19,4 @@ export default class Menu extends Component {
             </nav>
         </div>
     }
-}
-
-Menu.propTypes = {
-    active: PropTypes.string.isRequired
 }

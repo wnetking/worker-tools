@@ -13,15 +13,15 @@ class App extends Component {
     const { menu, convector, loger } = this.props
     const { setNumbers } = this.props.convectorAction
     const { setActive } = this.props.menuAction
-    const { updateLogers} = this.props.logerAction
+    const { updateLogers, updateLocalStorage } = this.props.logerAction
 
     return (
       <div className='app container'>
         <Menu active={menu.active} setActive={setActive} />
-        {menu.active === 'Conventor' ?
+        {menu.active === 'Convector' ?
           <Convector intIn1={convector.intIn1} intIn2={convector.intIn2} setNumbers={setNumbers} />
           :
-          <Loger logers={loger.logers} updateLogers={updateLogers}/>
+          <Loger logers={loger.logers} updateLogers={updateLogers} updateLocalStorage={updateLocalStorage} />
         }
       </div>
     )
