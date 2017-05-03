@@ -13,7 +13,10 @@ export default class Menu extends Component {
                     <a className='nav-link' href='#' onClick={this.onMenuItemClicke.bind(this)}>Convector</a>
                 </li>
                 <li className='nav-item'>
-                    <a className='nav-link' href='#' onClick={this.onMenuItemClicke.bind(this)}>Loger</a>
+                    <a className='nav-link' href='#' onClick={this.onMenuItemClicke.bind(this)}>Logger</a>
+                </li>
+                <li className='nav-item'>
+                    <a className='nav-link' href='#' onClick={this.onMenuItemClicke.bind(this)}>Trader Info</a>
                 </li>
             </ul>
             </nav>
