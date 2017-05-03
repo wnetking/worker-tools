@@ -1,2 +1,3 @@
-export const PRODUCTION = true;
+export const PRODUCTION = false;
+
 
