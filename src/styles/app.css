@@ -1,9 +1,13 @@
 @import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
-.convector, .loger , .trader{
+.convector, .loger{
   display: flex;
   margin-top: 30px;
 }
+
+ .trader{
+   margin-top: 30px;
+ }
 
 .convector .input-group span {
   min-width: 194px;

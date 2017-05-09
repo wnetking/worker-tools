@@ -1,59 +1,62 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
+import ReactDOM from 'react-dom'
 
 export default class Trader extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      currencies: [{
-        'r030': 12,
-        'txt': 'Алжирський динар',
-        'rate': 0.247509,
-        'cc': 'DZD',
-        'exchangedate': '03.05.2017'
-      }, {
-        'r030': 944,
-        'txt': 'Азербайджанський манат',
-        'rate': 15.544328,
-        'cc': 'AZN',
-        'exchangedate': '03.05.2017'
-      }]
-    };
-    this.currency = this.currency.bind(this);
-  }
-
-  currency() {
-    var myInit = {
-      mode: 'cors'
+      totalRevenue: 0
     }
 
-    fetch('https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?json', myInit)
-      .then(function(response) {
-        console.log(response)
-        return response;
-      })
-      .then(function(all) {
-        console.log(all);
-      })
+    this.currencyCalculation = this.currencyCalculation.bind(this)
   }
 
+  currencyCalculation() {
+    let automateExchenge = Number(ReactDOM.findDOMNode(this.refs.automateExchenge).value === '' ? 0 : ReactDOM.findDOMNode(this.refs.automateExchenge).value)
+    let noExchengeInUsd = Number(ReactDOM.findDOMNode(this.refs.noExchengeInUsd).value === '' ? 0 : ReactDOM.findDOMNode(this.refs.noExchengeInUsd).value)
+    let exchangeRate = Number(ReactDOM.findDOMNode(this.refs.exchangeRate).value === '' ? 0 : ReactDOM.findDOMNode(this.refs.exchangeRate).value)
+
+    this.setState({ totalRevenue: (automateExchenge + (noExchengeInUsd * exchangeRate)) });
+  }
 
   render() {
+    let totalRevenue = this.state.totalRevenue
     return (
-      <div className='trader'>
-        <button className='btn btn-default btn-xs' onClick={this.currency}>Валюта</button>
-        <ul className='list-group'>
-          {
-            this.state.currencies.map((item, index) => {
-                return (
-                  <li className='list-group-item justify-content-between' key={index}>
-                    {item.txt}
-                    <span className='badge badge-default badge-pill'>{item.rate}</span>
-                  </li>
-                )
-              }
-            )
-          }
-        </ul>
+      <div className='trader row'>
+        <div className='col-xs-5'>
+          <div className='form-group'>
+            <p>Сумма что поменялась автоматически</p>
+            <div className='input-group mb-2 mr-sm-2 mb-sm-0'>
+              <div className='input-group-addon'>грн</div>
+              <input type='number' onChange={this.currencyCalculation} ref='automateExchenge' className='form-control' placeholder='Сумма' />
+            </div>
+          </div>
+          <div className='form-group'>
+            <p>Сума которая не поменялась</p>
+            <div className='input-group mb-2 mr-sm-2 mb-sm-0'>
+              <div className='input-group-addon'>$</div>
+              <input type='number' onChange={this.currencyCalculation} ref='noExchengeInUsd' className='form-control' id='inlineFormInputGroup' placeholder='Сумма' />
+            </div>
+          </div>
+          <div className='form-group'>
+            <p>Курс НБУ на день обязательного обмена</p>
+            <div className='input-group mb-2 mr-sm-2 mb-sm-0'>
+              <div className='input-group-addon'>грн</div>
+              <input type='number' onChange={this.currencyCalculation} ref='exchangeRate' className='form-control' id='inlineFormInputGroup' placeholder='Сумма' />
+            </div>
+          </div>
+        </div>
+        <div className='col-xs-7'>
+          <div className='card'>
+            <div className='card-header'>Общий доход : {totalRevenue.toFixed(4)} грн</div>
+            <div className='card-block'>
+              <h6 className='card-title'>Налог 5% от общего дохода</h6>
+              <h2 className='card-text'>
+                {(totalRevenue * 0.05).toFixed(4)} <small>грн</small>
+              </h2>
+            </div>
+          </div>
+        </div>
       </div>
     )
   }
