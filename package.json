@@ -4,7 +4,8 @@
   "description": "This is tools that help you work faster, also planed that this app help you login staff that you do for day.",
   "main": "index.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "build": "webpack"
   },
   "author": "Illya Kyrylov",
   "license": "MIT",
@@ -43,6 +44,7 @@
     "react-dom": "^15.4.1",
     "react-redux": "4.4.6",
     "react-router": "4.1.1",
+    "react-router-dom": "4.1.1",
     "redux": "3.6.0",
     "redux-logger": "2.7.4",
     "redux-thunk": "2.1.0",

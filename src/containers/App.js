@@ -1,31 +1,54 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import Menu from '../components/Menu'
-import Convector from '../components/Converter'
-import Loger from '../components/Loger'
-import Trader from '../components/Trader'
+import Convector from './Converter'
+import Loger from './Loger'
+import Trader from './Trader'
+import Layout from '../components/Layout'
+import Todo from './Todo'
 import * as convectorAction from '../actions/ConvectorAction'
 import * as menuAction from '../actions/MenuAction'
 import * as logerAction from '../actions/LogerAction'
 
+import {
+  BrowserRouter as Router,
+  Route
+} from 'react-router-dom'
+
+
 class App extends Component {
   render() {
-    const { menu, convector, loger } = this.props
+    const { convector, loger } = this.props
     const { setNumbers } = this.props.convectorAction
-    const { setActive } = this.props.menuAction
     const { updateLogers, updateLocalStorage } = this.props.logerAction
 
     return (
-      <div className='app container'>
-        <Menu active={menu.active} setActive={setActive} />
-        {menu.active === 'Convector' ?  <Convector intIn1={convector.intIn1} intIn2={convector.intIn2} setNumbers={setNumbers} /> : '' }
-        {menu.active === 'Logger' ?  <Loger logers={loger.logers} updateLogers={updateLogers} updateLocalStorage={updateLocalStorage} />: '' }
-        {menu.active === 'Trader Info' ?  <Trader />: '' }
-      </div>
+      <Router>
+        <Layout>        
+          <Route exact path='/' render={() => (
+            <Convector intIn1={convector.intIn1} intIn2={convector.intIn2} setNumbers={setNumbers} />
+          )} />
+          <Route path='/loger' render={() => (
+            <Loger logers={loger.logers} updateLogers={updateLogers} updateLocalStorage={updateLocalStorage} />
+          )} />
+          <Route path='/trader' render={() => (
+            <Trader />
+          )} />
+           <Route exact strict path='/todo' render={() => (
+            <Todo />
+          )} />
+           <Route strict path='/todo/:id' component={TodoEl} />
+        </Layout>
+      </Router>
     )
   }
 }
+
+const TodoEl = ({ match }) => (
+    <div>
+        <h2>Todo id: {match.params.id}</h2>
+    </div>
+)
 
 function mapStateToProps(state) {
   return {
