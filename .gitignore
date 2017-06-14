@@ -1,6 +1,0 @@
-node_modules
-.tmp
-.sass-cache
-.idea
-.vscode
-app/bower_components
