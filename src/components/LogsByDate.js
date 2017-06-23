@@ -19,7 +19,7 @@ export default class LogByDate extends Component {
     this.setState({
       formatedDate: date._d.toLocaleDateString(),
       startDate: date
-    });
+    })
   }
 
   render() {

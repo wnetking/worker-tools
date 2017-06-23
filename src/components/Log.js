@@ -8,7 +8,6 @@ export default class LogItem extends Component {
       return (item.content !== logContent && item.time !== logTime)
     })
     this.props.updateLogers(newData);
-    this.props.updateLocalStorage(newData);
   }
 
   render() {

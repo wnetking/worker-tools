@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import {appPath} from '../appSettings'
 import {
     Route,
     Link
@@ -9,10 +10,10 @@ let style = {
 }
 
 let menuData = [
-    { to: '/', label: 'Convector', exact: true },
-    { to: '/loger', label: 'Logger', exact: false },
-    { to: '/trader', label: 'Trader Info', exact: false },
-    { to: '/todo', label: 'Todo app', exact: false }
+    { to: appPath, label: 'Convector', exact: true },
+    { to: `${appPath}loger`, label: 'Logger', exact: false },
+    { to: `${appPath}trader`, label: 'Trader Info', exact: false },
+    { to: `${appPath}todo`, label: 'Todo app', exact: false }
 ]
 
 export default class Menu extends Component {

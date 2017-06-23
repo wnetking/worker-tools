@@ -34,7 +34,6 @@ export default class Loger extends Component {
     
     const newLogers = [].concat(newLog, logers)
     this.props.updateLogers(newLogers)
-    this.props.updateLocalStorage(newLogers)
     ReactDOM.findDOMNode(this.refs.newLog).value = ''
   }
 
@@ -46,12 +45,12 @@ export default class Loger extends Component {
   }
 
   render() {
-    const {logers, updateLogers, updateLocalStorage} = this.props
+    const {logers, updateLogers} = this.props
     const triggerlogByDate = this.state.logByDate
     const logersItem = logers.map((item, index) => {
         return (
           <div key={index}>
-            <LogItem logContent={item.content} logDate={item.date} logTime={item.time} updateLogers={updateLogers} updateLocalStorage={updateLocalStorage} logers={logers}/>
+            <LogItem logContent={item.content} logDate={item.date} logTime={item.time} updateLogers={updateLogers}  logers={logers}/>
           </div>
         )
       }

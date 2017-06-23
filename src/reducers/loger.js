@@ -1,28 +1,14 @@
-import {UPDATE_LOGERS} from '../constants/Loger'
+import { UPDATE_LOGERS } from '../constants/Loger'
+import { logerData } from '../data/initData'
 
-const data = [
-  {
-    date: '12.04.2017',
-    time: '12:10:50',
-    content: 'пил чай'
-  },
-  {
-    date: '13.04.2017',
-    time: '12:10:55',
-    content: 'ел чай'
-  },
-  {
-    date: '14.04.2017',
-    time: '12:10:59',
-    content: 'чай'
+const getinitialState = (initData) => {
+  return {
+    logers: localStorage.getItem('logers') === 'undefined' || localStorage.getItem('logers') === null ?
+      initData : JSON.parse(localStorage.getItem('logers'))
   }
-]
-
-const initialState = {
-  logers: JSON.parse(localStorage.getItem('logers')) === null ? data : JSON.parse(localStorage.getItem('logers'))
 }
 
-export default function loger(state = initialState, action) {
+export default function loger(state = getinitialState(logerData), action) {
   switch (action.type) {
     case UPDATE_LOGERS:
       return {

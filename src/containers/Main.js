@@ -5,10 +5,12 @@ import Convector from './Converter'
 import Loger from './Loger'
 import Trader from './Trader'
 import Layout from '../components/Layout'
-import Todo from './Todo'
+import Todo from './todo'
+import {appPath} from '../appSettings'
 import * as convectorAction from '../actions/ConvectorAction'
 import * as menuAction from '../actions/MenuAction'
 import * as logerAction from '../actions/LogerAction'
+import * as todoAction from '../actions/TodoAction'
 
 import {
   BrowserRouter as Router,
@@ -18,50 +20,46 @@ import {
 
 class Main extends Component {
   render() {
-    const { convector, loger } = this.props
+    const { convector, loger, todo } = this.props
     const { setNumbers } = this.props.convectorAction
-    const { updateLogers, updateLocalStorage } = this.props.logerAction
+    const { updateLogers} = this.props.logerAction
+    const { addTodo, toggleTodo, deleteTodo} = this.props.todoAction
 
     return (
       <Router>
         <Layout>        
-          <Route exact path='/' render={() => (
+          <Route exact path={appPath} render={() => (
             <Convector intIn1={convector.intIn1} intIn2={convector.intIn2} setNumbers={setNumbers} />
           )} />
-          <Route path='/loger' render={() => (
-            <Loger logers={loger.logers} updateLogers={updateLogers} updateLocalStorage={updateLocalStorage} />
+          <Route path={`${appPath}loger`} render={() => (
+            <Loger logers={loger.logers} updateLogers={updateLogers}/>
           )} />
-          <Route path='/trader' render={() => (
+          <Route path={`${appPath}trader`} render={() => (
             <Trader />
           )} />
-           <Route exact strict path='/todo' render={() => (
-            <Todo />
+           <Route exact strict path={`${appPath}todo`} render={() => (
+            <Todo todo={todo} addTodo={addTodo} toggleTodo={toggleTodo} deleteTodo={deleteTodo}/>
           )} />
-           <Route strict path='/todo/:id' component={TodoEl} />
         </Layout>
       </Router>
     )
   }
 }
 
-const TodoEl = ({ match }) => (
-    <div>
-        <h2>Todo id: {match.params.id}</h2>
-    </div>
-)
-
 function mapStateToProps(state) {
   return {
     convector: state.convector,
     menu: state.menu,
-    loger: state.loger
+    loger: state.loger,
+    todo: state.todo
   }
 }
 function mapDispatchToProps(dispatch) {
   return {
     convectorAction: bindActionCreators(convectorAction, dispatch),
     menuAction: bindActionCreators(menuAction, dispatch),
-    logerAction: bindActionCreators(logerAction, dispatch)
+    logerAction: bindActionCreators(logerAction, dispatch),
+    todoAction: bindActionCreators(todoAction, dispatch),
   }
 }
 
